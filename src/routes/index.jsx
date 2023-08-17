@@ -4,7 +4,9 @@ import { SignIn } from "../pages/SignIn";
 
 export function PathRoutes() {
   return (
-    <Router>
+    <Router
+      basename={import.meta.env.DEV ? '/' : '/todo-list-react-js/'}
+    >
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
