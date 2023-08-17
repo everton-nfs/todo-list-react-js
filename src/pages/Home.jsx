@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Item } from "../components/Item";
 import { TbPlus } from "react-icons/tb";
+import { BsCheckLg } from "react-icons/bs";
+import { PiSignOutBold } from "react-icons/pi";
+
 
 export function Home() {
 
@@ -39,9 +43,29 @@ export function Home() {
 
   return (
     <div className="bg-[#762b94] h-full">
-      <div className="mx-auto max-w-screen-md xl:max-w-screen-xs p-5 pt-0">
+      <div className="mx-auto max-w-screen-md xl:max-w-screen-xs p-5 lg:p-0 pt-0">
         <div className="sticky top-0 z-10 pb-7 bg-[#762b94]">
-          <h1 className="uppercase text-white py-5 text-2xl">Todo List</h1>
+
+          <div className="flex justify-between items-center">
+            <div className="text-4xl flex flex-row items-center py-5">
+              <h1 className="font-light text-white">
+                To.
+              </h1>
+              <div className="flex justify-center items-center">
+                <h1 className="font-bold text-white">D</h1>
+                <div
+                  className={`bg-transparent rounded-full w-[1.7rem] h-[1.7rem] bg-white flex justify-center items-center text-xl pr-[2px]`}
+                >
+                  <BsCheckLg color="#762b94" />
+                </div>
+              </div>
+            </div>
+
+            <Link to="/signin" className="text-xl text-white cursor-pointer">
+              <PiSignOutBold />
+            </Link>
+          </div>
+
           <div className="flex justify-center items-center">
             <input
               autoFocus

@@ -3,28 +3,28 @@ import { BsCheckLg } from "react-icons/bs";
 export function SignIn() {
   return (
     <div className="flex items-center min-h-screen p-4 lg:justify-center">
-      <div
-        className="flex flex-col overflow-hidden bg-white shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md"
+      <div                                            
+        className="w-full flex flex-col overflow-hidden bg-white shadow-lg max md:flex-row md:flex-1 max-w-screen-md"
       >
         <div
           className="bg-[#30d89b] p-5 md:flex-1"
         >
-          <div className="text-7xl flex flex-row items-center justify-center h-full">
+          <div className="lg:text-7xl md:text-5xl text-4xl flex flex-row items-center justify-center h-full">
             <h1 className="font-light text-[#762b94]">
               To.
             </h1>
             <div className="flex justify-center items-center">
               <h1 className="font-bold text-white">D</h1>
               <div
-                className={`bg-transparent rounded-full w-[3rem] h-[3rem] bg-white flex justify-center items-center text-4xl pr-[2px]`}
+                className={`bg-transparent rounded-full w-[1.7rem] h-[1.7rem] md:w-[2.1rem] md:h-[2.1rem] lg:w-12 lg:h-12 bg-white flex justify-center items-center text-4xl pr-[2px]`}
               >
                 <BsCheckLg color="#30d89b"/>
               </div>
             </div>
           </div>
         </div>
-        <div className="px-14 py-20 bg-white md:flex-1">
-          <h3 className="my-4 text-2xl font-semibold text-[gray-700]">Login</h3>
+        <div className="px-8 py-14 lg:px-14 lg:py-20 bg-white md:flex-1">
+          <h3 className="mb-4 text-2xl font-semibold text-[gray-700]">Login</h3>
           <form action="#" className="flex flex-col space-y-5">
             <div className="flex flex-col space-y-1">
               <label className="text-sm font-medium text-gray-500">Email</label>
