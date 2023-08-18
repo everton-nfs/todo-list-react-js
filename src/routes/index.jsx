@@ -9,9 +9,9 @@ export function PathRoutes() {
       basename={import.meta.env.DEV ? '/' : '/todo-list-react-js/'}
     >
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/" element={<SignIn/>} />
         <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home/>} />
       </Routes>
     </Router>
   )

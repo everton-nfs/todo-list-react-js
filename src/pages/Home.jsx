@@ -1,13 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { Item } from "../components/Item";
 import { TbPlus } from "react-icons/tb";
 import { BsCheckLg } from "react-icons/bs";
 import { PiSignOutBold } from "react-icons/pi";
+import { auth } from "../services/firebaseConfig";
+import { useSignOut } from 'react-firebase-hooks/auth';
+import { useNavigate } from "react-router-dom";
 
 
 export function Home() {
 
+  const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
+  const [signOut, loading, error] = useSignOut(auth);
   const [items, setItems] = useState([]);
   const [inputTitle, setInputTitle] = useState('');
   const inputRef = useRef(null);
@@ -39,6 +44,13 @@ export function Home() {
     }
   };
 
+  const handleSignOut = async () => {
+    const success = await signOut();
+    if (success) {
+      return navigate("/");
+    }
+  }
+
   //console.log(JSON.stringify(items, null, '\t'));
 
   return (
@@ -61,9 +73,9 @@ export function Home() {
               </div>
             </div>
 
-            <Link to="/signin" className="text-xl text-white cursor-pointer">
+            <button onClick={handleSignOut} className="text-xl text-white cursor-pointer">
               <PiSignOutBold />
-            </Link>
+            </button>
           </div>
 
           <div className="flex justify-center items-center">

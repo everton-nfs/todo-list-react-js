@@ -1,9 +1,29 @@
 import { Link } from "react-router-dom";
 import { BsCheckLg } from "react-icons/bs";
+import { useState } from "react";
+import { auth } from "../services/firebaseConfig";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Loading } from "../components/Loding";
 import { Notification } from "../components/Notification";
-// import { Loading } from "../components/Loding";
 
 export function Register() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth);
+
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(email, password)
+  }
+
+
   return (
     <div className="flex items-center min-h-screen p-4 lg:justify-center">
       <div
@@ -28,7 +48,8 @@ export function Register() {
         </div>
         <div className="w-full relative">
 
-          <Notification type="Error" message="Cadastrado!"/>
+          { user && <Notification type="Success" message="Cadastro realizado com sucesso!" navigation="/"/> }
+          { error && <Notification type="Error" message="Algo errado no cadastramento!"/> }
 
           <div className="py-[4.5rem] lg:py-[4.5rem] bg-white flex justify-center items-center">
             <form action="#" className="flex flex-col space-y-5 px-8 lg:px-16">
@@ -40,6 +61,7 @@ export function Register() {
                   id="email"
                   autoFocus
                   className={`px-4 py-2 transition duration-300 text-black bg-gray-25 border-2 border-gray-25 focus:border-[#762b94] focus:outline-none placeholder:text-gray-30 text-base`}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="flex flex-col space-y-1">
@@ -50,20 +72,21 @@ export function Register() {
                   type="password"
                   id="password"
                   className={`px-4 py-2 transition duration-300 text-black bg-gray-25 border-2 border-gray-25 focus:border-[#762b94] focus:outline-none placeholder:text-gray-30 text-base`}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
                 <button
+                  onClick={handleSignOut}
                   type="submit"
                   className="w-full h-[2.75rem] px-4 py-2 text-lg font-medium text-white transition-colors duration-300 bg-[#762b94]  shadow hover:bg-[#5d2674] focus:outline-none flex justify-center items-center"
                 >
-                  {/* <Loading/> */}
-                  Cadastrar
+                  { loading ? <Loading/> : "Cadastrar"}
                 </button>
               </div>
               <div className="flex flex-col space-y-5">
                 <p className="text-sm font-medium text-gray-500 whitespace-normal">Você já tem uma conta?
-                  <Link to="/signin" className="text-[#762b94]"> Acesse sua conta aqui</Link>
+                  <Link to="/" className="text-[#762b94]"> Acesse sua conta aqui</Link>
                 </p>
               </div>
             </form>

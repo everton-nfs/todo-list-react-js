@@ -10,13 +10,13 @@ export function Notification(props) {
 
     const navigate = useNavigate();
     const [visible, setVisible] = useState(true);
-  
+
     useEffect(() => {
       let timer;
       if (visible) {
         timer = setTimeout(() => {
           setVisible(false);
-          navigate("/signin");
+          props.navigation && navigate(props.navigation);
         }, 3000);
       }
   

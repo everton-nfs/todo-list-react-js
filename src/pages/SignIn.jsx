@@ -1,7 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsCheckLg } from "react-icons/bs";
+import { useState, useEffect } from "react";
+import { auth } from "../services/firebaseConfig";
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Loading } from "../components/Loding";
+import { Notification } from "../components/Notification";
 
 export function SignIn() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [
+    signInWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useSignInWithEmailAndPassword(auth);
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(email, password);
+  }
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
+  
+
   return (
     <div className="flex items-center min-h-screen p-4 lg:justify-center">
       <div
@@ -24,7 +52,10 @@ export function SignIn() {
             </div>
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full relative">
+
+          { error && <Notification type="Error" message="Algo errado na autenticação!"/> }
+
           <div className="py-[4.5rem] lg:py-[4.5rem] bg-white flex justify-center items-center">
             <form action="#" className="flex flex-col space-y-5 px-8 lg:px-16">
               <h3 className="mb-4 text-2xl font-semibold text-[gray-700]">Login</h3>
@@ -35,6 +66,7 @@ export function SignIn() {
                   id="email"
                   autoFocus
                   className={`px-4 py-2 transition duration-300 text-black bg-gray-25 border-2 border-gray-25 focus:border-[#762b94] focus:outline-none placeholder:text-gray-30 text-base`}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="flex flex-col space-y-1">
@@ -45,15 +77,16 @@ export function SignIn() {
                   type="password"
                   id="password"
                   className={`px-4 py-2 transition duration-300 text-black bg-gray-25 border-2 border-gray-25 focus:border-[#762b94] focus:outline-none placeholder:text-gray-30 text-base`}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
                 <button
+                  onClick={handleSignIn}
                   type="submit"
                   className="w-full h-[2.75rem] px-4 py-2 text-lg font-medium text-white transition-colors duration-300 bg-[#762b94]  shadow hover:bg-[#5d2674] focus:outline-none flex justify-center items-center"
                 >
-                  {/* <Loading/> */}
-                  Entrar
+                  { loading ? <Loading/> : "Entrar"}
                 </button>
               </div>
               <div className="flex flex-col space-y-5">
